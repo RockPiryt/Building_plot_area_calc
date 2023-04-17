@@ -1,6 +1,6 @@
 #Imports
 from tkinter import *
-
+from tkinter import ttk
 #Constans_______________________________________________________________
 #Colors
 DARK_GREEN ='#125C13'
@@ -12,6 +12,7 @@ RED = '#e23d3d'
 TITLE_FONT = ('Arial', 20, 'bold')
 LABEL_FONT = ('Arial', 14, 'bold')
 BUTTON_FONT = ('Arial', 10, 'bold')
+COMBOBOX_FONT = ('Arial', 8, 'bold')
 
 #Window config__________________________________________________________
 window = Tk()
@@ -20,6 +21,60 @@ window.iconbitmap('plot.ico')
 window.minsize(width=500, height=300)
 window.resizable(True,True)
 window.config(bg=LIGHT, padx=50, pady=20)
+
+#Commands________________________________________________________________
+
+def calculate_area():
+    '''Calculate area from 2 values'''
+
+    #Clear previous output
+    area_entry.delete(0, END)
+    first_value_entry.delete(0, END)
+
+    #Get values from user
+    a = float(a_entry.get())
+    b = float(b_entry.get())
+    print(a)
+    print(type(a))
+
+    #Calculate area in m2 - return float
+    area_m2 = a * b
+
+    #Return value in area_entry and first_value_entry
+    area_entry.insert(0, f'{area_m2}') #index for insert!
+    first_value_entry.insert(0, f'{area_m2}') #index for insert!
+
+    return area_m2#float
+
+# c = calculate_area()
+
+
+# def change_unit(c):
+#     system_values = {
+#         'm2':1,
+#         'ar': 100,
+#         'ha':10000,
+#         'km2':1000000
+#     }
+    
+#     #Clear previous output
+#     second_value_entry.delete(0, END)
+
+#     #Get all information
+#     first_unit = input_combobox.get()
+#     second_unit = output_combobox.get()
+    
+#     #convert do base unit
+#     base_value = c*system_values[first_unit]
+#     #convert to new area value
+#     end_value = base_value/system_values[second_unit]
+
+#     #Show converted value
+#     second_value_entry.insert(0, str(end_value))
+
+
+
+
 
 #Layout________________________________________________________________
 
@@ -48,7 +103,8 @@ b_label.grid(row=4, column=3, sticky='EW')
 b_entry = Entry()
 b_entry.grid(row=4, column=4, sticky='EW')
 
-calculate_button = Button(text='Calculate area', bg=RED, fg=LIGHT, font=LABEL_FONT)
+#Button calculate
+calculate_button = Button(text='Calculate area', bg=RED, fg=LIGHT, font=LABEL_FONT, command=calculate_area)
 calculate_button.grid(row=7, column=0, columnspan=5, sticky='EW')
 
 area_label = Label(text='Your plot have:', font=LABEL_FONT, bg=LIGHT)
@@ -73,9 +129,37 @@ second_value_label.grid(row=11, column=3)
 second_value_entry= Entry()
 second_value_entry.grid(row=11, column=4, sticky='EW')
 
-calculate_button = Button(text='Convert unit', bg=RED, fg=LIGHT, font=LABEL_FONT)
-calculate_button.grid(row=12, column=0, columnspan=5, sticky='EW')
+#Values
+area_values = ['m2', 'ar', 'ha', 'km2']
+
+# #Dropdown
+# input_choice = StringVar()#to see string value in dropdown
+# input_choice.set('m2')
+# input_dropdown = OptionMenu(window, input_choice, *area_values)
+# input_dropdown.grid(row=12, column=0, columnspan=2, sticky='EW')
+
+# output_choice = StringVar()
+# output_choice.set('ha')
+# output_dropdown = OptionMenu(window, output_choice, *area_values)
+# output_dropdown.grid(row=12, column=3, columnspan=2, sticky='EW')
+
+# to_label = Label(text='to', font=LABEL_FONT, bg=LIGHT)
+# to_label.grid(row=12, column=2)
+
+#Combobox
+input_combobox = ttk.Combobox(window, values=area_values, font=COMBOBOX_FONT, justify='center')
+input_combobox.grid(row=12, column=0, columnspan=2, sticky='EW', pady= (0,20))
+input_combobox.set('m2')
+output_combobox = ttk.Combobox(window, values=area_values, font=COMBOBOX_FONT, justify='center')
+output_combobox.grid(row=12, column=3, columnspan=2, sticky='EW', pady= (0,20))
+output_combobox.set('ha')
+
+#convert button
+convert_button = Button(text='Convert unit', bg=RED, fg=LIGHT, font=LABEL_FONT, command=change_unit)
+convert_button.grid(row=14, column=0, columnspan=5, sticky='EW')
+
+
+
+
 
 window.mainloop()
-
-
