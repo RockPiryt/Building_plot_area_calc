@@ -30,6 +30,7 @@ def calculate_area():
     #Clear previous output
     area_entry.delete(0, END)
     first_value_entry.delete(0, END)
+    second_value_entry.delete(0, END)
 
     #Get values from user
     a = float(a_entry.get())
@@ -49,30 +50,34 @@ def calculate_area():
 # c = calculate_area()
 
 
-# def change_unit(c):
-#     system_values = {
-#         'm2':1,
-#         'ar': 100,
-#         'ha':10000,
-#         'km2':1000000
-#     }
+def change_unit():
+    '''User can convert plot area in m2 to another units'''
+
+    #Define another units
+    system_values = {
+        'm2':1,
+        'ar': 100,
+        'ha':10000,
+        'km2':1000000
+    }
+
+    #Grab the value from first value field
+    value_to_convert = float(first_value_entry.get())
+
+    #Clear previous output
+    second_value_entry.delete(0, END)
+
+    #Get all information
+    first_unit = input_combobox.get()
+    second_unit = output_combobox.get()
     
-#     #Clear previous output
-#     second_value_entry.delete(0, END)
+    #convert do base unit
+    base_value = value_to_convert * system_values[first_unit]
+    #convert to new area value
+    end_value = base_value / system_values[second_unit]
 
-#     #Get all information
-#     first_unit = input_combobox.get()
-#     second_unit = output_combobox.get()
-    
-#     #convert do base unit
-#     base_value = c*system_values[first_unit]
-#     #convert to new area value
-#     end_value = base_value/system_values[second_unit]
-
-#     #Show converted value
-#     second_value_entry.insert(0, str(end_value))
-
-
+    #Show converted value
+    second_value_entry.insert(0, str(end_value))
 
 
 
