@@ -33,4 +33,4 @@ ________________________________________________________________________________
 Preview:
 
 
-![Preview](https://github.com/RockPiryt/Building_plot_area_calc/blob/main/preview_app.jpg?raw=true)
+![Preview](https://github.com/RockPiryt/Building_plot_area_calc/blob/main/preview.jpg?raw=true)
